@@ -22,4 +22,4 @@ permissions:
         children:
           alias.command.alias:
             default: op
-            desctiption: "Cho phép kiểm tra tên người chơi"
+            description: "Cho phép kiểm tra tên người chơi"
