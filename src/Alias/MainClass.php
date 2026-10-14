@@ -76,7 +76,7 @@ final class MainClass extends PluginBase implements Listener {
             $this->appendName($names, $legacyName);
         }
         $this->appendName($names, $name);
-        $ipRecord->set("names", array_values($names));
+        $ipRecord->set("names", $names);
         $ipRecord->save();
 
         $playerRecordPath = $this->getPlayerRecordPath($name);
@@ -99,7 +99,7 @@ final class MainClass extends PluginBase implements Listener {
             $sender->sendMessage(TextFormat::YELLOW . "[Alias] IP-based alias recording and lookup are disabled. A server owner must review and enable record-ip-aliases in config.yml.");
             return true;
         }
-        if (!isset($args[0]) || !is_string($args[0]) || !preg_match('/^[a-z0-9_]{1,16}$/iD', $args[0])) {
+        if (!isset($args[0]) || !preg_match('/^[a-z0-9_]{1,16}$/iD', $args[0])) {
             $sender->sendMessage(TextFormat::RED . "§f•§c Sử dụng: /alias <Tên>");
             return true;
         }
@@ -243,7 +243,7 @@ final class MainClass extends PluginBase implements Listener {
             return;
         }
         foreach ($names as $existingName) {
-            if (is_string($existingName) && strcasecmp($existingName, $name) === 0) {
+            if (strcasecmp($existingName, $name) === 0) {
                 return;
             }
         }
