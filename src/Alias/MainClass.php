@@ -65,9 +65,12 @@ final class MainClass extends PluginBase implements Listener {
         }
 
         $ipRecord = new Config($ipRecordPath, Config::YAML, array("names" => array()));
-        $names = $ipRecord->get("names", array());
-        if (!is_array($names)) {
-            $names = array();
+        $storedNames = $ipRecord->get("names", array());
+        $names = array();
+        if (is_array($storedNames)) {
+            foreach ($storedNames as $storedName) {
+                $this->appendName($names, $storedName);
+            }
         }
         foreach ($legacyNames as $legacyName) {
             $this->appendName($names, $legacyName);
@@ -97,7 +100,7 @@ final class MainClass extends PluginBase implements Listener {
             return true;
         }
         if (!isset($args[0]) || !is_string($args[0]) || !preg_match('/^[a-z0-9_]{1,16}$/iD', $args[0])) {
-            $sender->sendMessage(TextFormat::RED . "§f•§c Sử dụng: " . $command->getUsage());
+            $sender->sendMessage(TextFormat::RED . "§f•§c Sử dụng: /alias <Tên>");
             return true;
         }
 
@@ -177,6 +180,7 @@ final class MainClass extends PluginBase implements Listener {
         return $this->getDataFolder() . "players/index/name/" . substr($nameKey, 0, 2) . "/" . $nameKey . ".yml";
     }
 
+    /** @return list<string> */
     private function readIndexedNames(string $ipKey) : array {
         $path = $this->getIpRecordPath($ipKey);
         if (!is_file($path)) {
@@ -187,6 +191,7 @@ final class MainClass extends PluginBase implements Listener {
         if (!is_array($names)) {
             return array();
         }
+        /** @var list<string> $validNames */
         $validNames = array();
         foreach ($names as $name) {
             $this->appendName($validNames, $name);
@@ -194,6 +199,7 @@ final class MainClass extends PluginBase implements Listener {
         return $validNames;
     }
 
+    /** @return list<string> */
     private function readLegacyNames(string $name) : array {
         if (!preg_match('/^[a-z0-9_]{1,16}$/iD', $name)) {
             return array();
@@ -212,6 +218,7 @@ final class MainClass extends PluginBase implements Listener {
         return $this->readLegacyNamesForIp($ip);
     }
 
+    /** @return list<string> */
     private function readLegacyNamesForIp(string $ip) : array {
         if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
             return array();
@@ -222,6 +229,7 @@ final class MainClass extends PluginBase implements Listener {
         }
         $index = new Config($indexPath, Config::ENUM);
         $names = $index->getAll(true);
+        /** @var list<string> $validNames */
         $validNames = array();
         foreach ($names as $name) {
             $this->appendName($validNames, $name);
@@ -229,6 +237,7 @@ final class MainClass extends PluginBase implements Listener {
         return $validNames;
     }
 
+    /** @param list<string> $names */
     private function appendName(array &$names, mixed $name) : void {
         if (!is_string($name) || !preg_match('/^[a-z0-9_]{1,16}$/iD', $name)) {
             return;
