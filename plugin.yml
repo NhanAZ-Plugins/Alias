@@ -1,25 +1,16 @@
+---
 name: Alias
-version: 1.2.0
-api: [1.12.0]
-author: Ghast Noob
-description: Cho phép người dùng xem tất cả tên người dùng mà một người dùng đã sử dụng
 main: Alias\MainClass
-
+version: 2.0.0
+api: 5.0.0
+author: Ghast Noob
+description: Lists recorded player aliases by shared network address
 commands:
   alias:
-    description: "Cho phép người dùng xem tất cả tên người dùng mà một người dùng đã sử dụng"
-    usage: "/alias <Tên>"
-    permission: "alias.command.alias"
-
+    description: Lists recorded aliases for a player
+    usage: "/alias <name>"
+    permission: alias.command.alias
 permissions:
-  alias:
+  alias.command.alias:
+    description: Allows a sender to check recorded player aliases
     default: op
-    description: "Cho phép các op sử dụng lệnh alias"
-    children:
-      alias.command:
-        default: op
-        description: "Cho phép các op sử dụng lệnh alias"
-        children:
-          alias.command.alias:
-            default: op
-            description: "Cho phép kiểm tra tên người chơi"

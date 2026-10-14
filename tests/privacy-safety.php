@@ -23,7 +23,7 @@ namespace AliasTest {
         private $manager;
         public function __construct() { $this->manager = new PluginManager(); }
         public function getPluginManager() { return $this->manager; }
-        public function getPlayer($name) { return isset(Fixture::$players[strtolower($name)]) ? Fixture::$players[strtolower($name)] : null; }
+        public function getPlayerExact($name) { return isset(Fixture::$players[strtolower($name)]) ? Fixture::$players[strtolower($name)] : null; }
     }
 }
 
@@ -63,14 +63,22 @@ namespace pocketmine\event\player {
     }
 }
 
+namespace pocketmine\network\mcpe {
+    class NetworkSession {
+        private $ip;
+        public function __construct($ip) { $this->ip = $ip; }
+        public function getIp() { return $this->ip; }
+    }
+}
+
 namespace pocketmine {
     class Player extends \pocketmine\command\CommandSender {
         private $name;
-        private $ip;
-        public function __construct($name, $ip) { $this->name = $name; $this->ip = $ip; }
+        private $networkSession;
+        public function __construct($name, $ip) { $this->name = $name; $this->networkSession = new \pocketmine\network\mcpe\NetworkSession($ip); }
         public function getName() { return $this->name; }
         public function getDisplayName() { return $this->name; }
-        public function getAddress() { return $this->ip; }
+        public function getNetworkSession() { return $this->networkSession; }
     }
 }
 

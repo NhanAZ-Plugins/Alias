@@ -1,17 +1,24 @@
 # Alias
 
-Alias is a legacy PocketMine-MP plugin that lists recorded player names associated with the same IP address. The original author is Ghast Noob.
+Alias looks up player names that were recorded from the same network address. Recording is disabled by default because these records are sensitive, linkable player data.
 
-## Compatibility
+## Compatibility and verification
 
-The manifest declares API `1.12.0`. This source has not been migrated to Axolotl-PM 5 and has no verified build or runtime test for that server. Do not install it on an Axolotl-PM 5 server.
+- Minimum Axolotl-PM API: `5.0.0`.
+- CI runs PHPStan at maximum level and builds against pinned API 5.0.0 and 5.49.1 source revisions.
+- The generated PHAR is smoke-tested on the official Axolotl-PM 5.49.1 server release. See the [workflow runs](https://github.com/NhanAZ-Plugins/Alias/actions).
+- These checks cover the listed source revisions. They do not prove compatibility with every API 5.x revision or test a connected player's network session.
 
-## IP and alias data
+## Privacy and stored data
 
-IP-based recording is disabled by default. A server owner must review the privacy implications and set `record-ip-aliases: true` in the generated `config.yml` before the plugin records or looks up aliases. The plugin uses a locally stored HMAC key to index new records without writing raw IP addresses into the new index filenames or YAML values. These keyed associations are still sensitive, linkable player data; protect the plugin data directory and keep `ip-index.key` with its indexes. Losing that key prevents the new records from being correlated.
+IP-based alias recording remains opt-in. Review your privacy obligations before setting `record-ip-aliases: true` in `config.yml`. New indexes use a local HMAC key rather than storing raw IP addresses in their paths or YAML values. The keyed associations remain sensitive data. Protect the plugin data directory and keep `ip-index.key` with its indexes.
 
-Existing legacy files may contain raw IP addresses. The plugin can read validated legacy records as a fallback and import their names on a player's next join, but it does not delete or rewrite those files. Server owners remain responsible for retention and deletion of legacy player data under their own policies.
+Validated legacy records can be read as a fallback and imported during a player's next join. The plugin does not remove or rewrite existing player files. Server owners remain responsible for data retention and deletion.
 
-## Project status
+## Attribution and license
 
-This repository is retained as a historical source reference. No new PHAR or release was produced during the Axolotl-PM 5 migration campaign. The repository has no license file, and redistribution rights have not been verified. The original author credit remains in `plugin.yml`.
+The historical manifest credits Ghast Noob. This repository does not contain a license file; no license was added or changed by this update.
+
+## Build
+
+The GitHub Actions workflow uses [DevTools](https://github.com/NhanAZ/DevTools) to run PHPStan, build the plugin PHAR and validate the artifact.
