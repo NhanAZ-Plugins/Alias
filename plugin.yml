@@ -3,7 +3,7 @@ name: Alias
 main: Alias\MainClass
 version: 2.0.0
 api: 5.0.0
-author: Ghast Noob
+author: NhanAZ
 description: Lists recorded player aliases by shared network address
 commands:
   alias:
