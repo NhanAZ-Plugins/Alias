@@ -1,6 +1,14 @@
 # Alias
 
-Alias looks up player names that were recorded from the same network address. Recording is disabled by default because these records are sensitive, linkable player data.
+Player alias lookup plugin for Axolotl-PM API 5.
+
+[![CI](https://github.com/NhanAZ-Plugins/Alias/actions/workflows/build.yml/badge.svg)](https://github.com/NhanAZ-Plugins/Alias/actions/workflows/build.yml)
+[![Latest release](https://img.shields.io/github/v/release/NhanAZ-Plugins/Alias)](https://github.com/NhanAZ-Plugins/Alias/releases/latest)
+[![Discord](https://img.shields.io/discord/986553214889517088?label=Discord&logo=discord&logoColor=white&color=5865F2)](https://discord.gg/j2X83ujT6c)
+
+## Overview
+
+This plugin targets the PocketMine-MP and Axolotl-PM API 5 ecosystem and is maintained under [NhanAZ-Plugins](https://github.com/NhanAZ-Plugins).
 
 ## Compatibility and verification
 
