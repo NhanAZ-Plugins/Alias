@@ -22,8 +22,13 @@ Validated legacy records can be read as a fallback and imported during a player'
 
 ## Attribution and license
 
-The historical manifest credits Ghast Noob. This repository does not contain a license file; no license was added or changed by this update.
+The historical manifest credits NhanAZ. This repository does not contain a license file; no license was added or changed by this update.
 
 ## Build
 
 The GitHub Actions workflow uses [DevTools](https://github.com/NhanAZ/DevTools) to run PHPStan, build the plugin PHAR and validate the artifact.
+
+
+## Credits
+
+Authors: NhanAZ.
